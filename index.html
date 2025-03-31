@@ -4,7 +4,6 @@
   <meta charset="utf-8">
   <meta name="keywords" content="GRID, AnimateDiffV3, VideoCrafter2, CogVideo5B">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>GRID: Video Generation Comparison</title>
 
   <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
   <link rel="stylesheet" href="./static/css/bulma.min.css">
@@ -63,43 +62,42 @@
       height: 100%;
     }
     
-    /* Portrait video container - fixed dimensions */
-    .portrait-container {
+    /* Common container styles - unified dimensions */
+    .video-container {
       width: 100%;
-      aspect-ratio: 9/16;
       display: flex;
       justify-content: center;
       align-items: center;
       background-color: black;
+      overflow: hidden;
+    }
+    
+    /* Portrait video container - fixed dimensions */
+    .portrait-container {
+      aspect-ratio: 9/16;
     }
     
     /* Landscape video container - fixed dimensions */
     .landscape-container {
-      width: 100%;
       aspect-ratio: 16/9;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background-color: black;
     }
     
-    /* Ensure all videos/images STRETCH to fill their containers */
-    .portrait-video, .portrait-gif {
+    /* Universal video/image styling - consistent dimensions */
+    .video-content {
       width: 100%;
       height: 100%;
-      object-fit: fill; /* Changed from contain to fill to stretch */
+      object-fit: cover; /* Changed to 'cover' to maintain ratio but fill space */
+      display: block;
     }
     
-    .landscape-video, .landscape-gif {
-      width: 100%;
-      height: 100%;
-      object-fit: fill; /* Changed from contain to fill to stretch */
+    /* Custom styles for each section to ensure consistency */
+    #portrait-section .video-content {
+      aspect-ratio: 9/16;
     }
     
-    .long-video {
-      width: 100%;
-      height: 100%;
-      object-fit: fill; /* Changed from contain to fill to stretch */
+    #landscape-section .video-content,
+    #long-video-section .video-content {
+      aspect-ratio: 16/9;
     }
     
     .method-name {
@@ -142,18 +140,19 @@
 </section>
 
 <!-- Portrait Video Comparison -->
-<section class="section">
+<section id="portrait-section" class="section">
   <div class="container">
     <h2 class="title is-2 comparison-title">Portrait Video Comparison</h2>
     <p class="prompt-text">Prompt："A woman with glasses wearing a white t-shirt sits at a wooden desk. An open notebook and calculator lie before her. She examines the document then picks up a pen. She wears bracelets on her wrist. Home study setting with natural light."
 </p>
     
     <div class="video-grid">
-      <!-- GRID (Ours) - Using new filename -->
+
+      <!-- GRID (Ours) -->
       <div class="video-item">
-        <div class="portrait-container">
-          <video class="portrait-video" controls loop muted playsinline>
-            <source src="./static/grid/grid1.mp4" type="video/mp4">
+        <div class="video-container portrait-container">
+          <video class="video-content" controls loop muted playsinline>
+            <source src="./static/grid/1.mp4" type="video/mp4">
             Your browser does not support the video tag.
           </video>
         </div>
@@ -162,16 +161,16 @@
       
       <!-- AnimateDiffV3 -->
       <div class="video-item">
-        <div class="portrait-container">
-          <img class="portrait-gif" src="./static/grid/0-A-woman-with-glasses-wearing-a-white-t-shirt-sits-at.gif" alt="AnimateDiffV3 Result">
+        <div class="video-container portrait-container">
+          <img class="video-content" src="./static/grid/0-A-woman-with-glasses-wearing-a-white-t-shirt-sits-at.gif" alt="AnimateDiffV3 Result">
         </div>
         <div class="method-name">AnimateDiffV3</div>
       </div>
       
       <!-- VideoCrafter2 -->
       <div class="video-item">
-        <div class="portrait-container">
-          <video class="portrait-video" controls loop muted playsinline>
+        <div class="video-container portrait-container">
+          <video class="video-content" controls loop muted playsinline>
             <source src="./static/grid/vcver-0001.mp4" type="video/mp4">
             Your browser does not support the video tag.
           </video>
@@ -181,8 +180,8 @@
       
       <!-- CogVideo5B -->
       <div class="video-item">
-        <div class="portrait-container">
-          <video class="portrait-video" controls loop muted playsinline>
+        <div class="video-container portrait-container">
+          <video class="video-content" controls loop muted playsinline>
             <source src="./static/grid/cogvideo.mp4" type="video/mp4">
             Your browser does not support the video tag.
           </video>
@@ -194,17 +193,17 @@
 </section>
 
 <!-- Landscape Video Comparison -->
-<section class="section">
+<section id="landscape-section" class="section">
   <div class="container">
     <h2 class="title is-2 comparison-title">Landscape Video Comparison</h2>
     <p class="prompt-text">Prompt: "Elegant European city street with curved row of sandstone historical buildings, arched entrances, uniform windows, neoclassical architectural style, parked cars, few pedestrians, camera slowly moving forward."</p>
     
     <div class="landscape-grid">
-      <!-- GRID (Ours) - Using new filename -->
+      <!-- GRID (Ours) -->
       <div class="video-item">
-        <div class="landscape-container">
-          <video class="landscape-video" controls loop muted playsinline>
-            <source src="./static/grid/grid2.mp4" type="video/mp4">
+        <div class="video-container landscape-container">
+          <video class="video-content" controls loop muted playsinline>
+            <source src="./static/grid/2.mp4" type="video/mp4">
             Your browser does not support the video tag.
           </video>
         </div>
@@ -213,8 +212,8 @@
       
       <!-- AnimateDiffV3 -->
       <div class="video-item">
-        <div class="landscape-container">
-          <img class="landscape-gif" src="./static/grid/0-Elegant-European-city-street-with-curved-row-of-sandstone-historical.gif" alt="AnimateDiffV3 Result">
+        <div class="video-container landscape-container">
+          <img class="video-content" src="./static/grid/0-Elegant-European-city-street-with-curved-row-of-sandstone-historical.gif" alt="AnimateDiffV3 Result">
         </div>
         <div class="method-name">AnimateDiffV3</div>
       </div>
@@ -223,8 +222,8 @@
     <div class="landscape-grid">
       <!-- VideoCrafter2 -->
       <div class="video-item">
-        <div class="landscape-container">
-          <video class="landscape-video" controls loop muted playsinline>
+        <div class="video-container landscape-container">
+          <video class="video-content" controls loop muted playsinline>
             <source src="./static/grid/vc-0002.mp4" type="video/mp4">
             Your browser does not support the video tag.
           </video>
@@ -234,8 +233,8 @@
       
       <!-- CogVideo5B -->
       <div class="video-item">
-        <div class="landscape-container">
-          <video class="landscape-video" controls loop muted playsinline>
+        <div class="video-container landscape-container">
+          <video class="video-content" controls loop muted playsinline>
             <source src="./static/grid/cog2.mp4" type="video/mp4">
             Your browser does not support the video tag.
           </video>
@@ -247,16 +246,16 @@
 </section>
 
 <!-- Long Video Comparison -->
-<section class="section">
+<section id="long-video-section" class="section">
   <div class="container">
     <h2 class="title is-2 comparison-title">Long Video Comparison (128 frames)</h2>
     
     <div class="long-video-grid">
-      <!-- GRID (Ours) - Using new filename -->
+      <!-- GRID (Ours) -->
       <div class="video-item">
-        <div class="landscape-container">
-          <video class="long-video" controls loop muted playsinline>
-            <source src="./static/grid/grid128.mp4" type="video/mp4">
+        <div class="video-container landscape-container">
+          <video class="video-content" controls loop muted playsinline>
+            <source src="./static/grid/128.mp4" type="video/mp4">
             Your browser does not support the video tag.
           </video>
         </div>
@@ -265,8 +264,8 @@
       
       <!-- CogVideo5B -->
       <div class="video-item">
-        <div class="landscape-container">
-          <video class="long-video" controls loop muted playsinline>
+        <div class="video-container landscape-container">
+          <video class="video-content" controls loop muted playsinline>
             <source src="./static/grid/cog2long128.mp4" type="video/mp4">
             Your browser does not support the video tag.
           </video>
@@ -281,7 +280,7 @@
   <div class="container">
     <div class="content has-text-centered">
       <p>
-        GRID: Advanced Video Generation Framework
+
       </p>
     </div>
   </div>
@@ -318,7 +317,17 @@
     // For debugging: log which videos fail to load
     videos.forEach(video => {
       video.addEventListener('error', function(e) {
-        console.error('Video load error:', video.querySelector('source').src, e);
+        const source = this.querySelector('source');
+        console.error('Video load error:', source ? source.src : 'no source', e);
+        
+        // Add visible error message to page
+        const errorDiv = document.createElement('div');
+        errorDiv.textContent = "Error loading video";
+        errorDiv.style.color = "white";
+        errorDiv.style.backgroundColor = "rgba(255,0,0,0.7)";
+        errorDiv.style.padding = "10px";
+        errorDiv.style.position = "absolute";
+        this.parentNode.appendChild(errorDiv);
       });
     });
   });
